@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Page Layout</title>
+<link rel="stylesheet" href="../static/css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a th:href="@{/produits}">Produit</a></li>
+      <li><a th:href="@{/formProduit}">Ajout Produit</a></li>
+      <li><a href="#">Catégories</a></li>
+      <li><a href="#">Catalogue</a></li>
+    </ul>
+  </div>
+</nav>
+<section layout:fragment="content"></section>
+
+<footer>
+<div>
+FOOTER
+</div>
+</footer>
+
+
+</body>
+</html>

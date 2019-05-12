@@ -1,45 +1,52 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout">
 <head>
-<meta charset="utf-8">
-<link rel="stylesheet" href="../static/css/bootstrap.min.css"
-	th:href="@{css/bootstrap.min.css}" />
+
 <title>Page produits</title>
 </head>
 <body>
+	<div layout:fragment="content">
 
-	<div class="container">
-		<div class="panel panel-primary">
-			<div class="panel-heading">Liste des produits</div>
-			<div class="panel-body">
-				<form th:action="@{/produits}" method="get">
-					<label for=""> Mot clÃ©</label>
-					<input type="text" name="motCle" th:value="${motCle}" />
-					<button class="btn btn-success" type="submit">Rechercher</button>
-				</form>
-			</div>
-			<div class="panel-body">
-				<table class="table">
-					<tr>
-						<th>id</th>
-						<th>designation</th>
-						<th>prix</th>
-						<th>quantite</th>
-					</tr>
-					<tr th:each="produit:${listeProduits}">
-						<td th:text="${produit.id}"></td>
-						<td th:text="${produit.designation}"></td>
-						<td th:text="${produit.prix}"></td>
-						<td th:text="${produit.quantite}"></td>
-						<td><a class="btn btn-danger" onclick="return confirm('Etes vous sÃ»r de vouloir supprimer ?')" th:href="@{/delete(id=${produit.id}, page= ${currentPage} , motCle=${motCle})}">Delete</a></td>
-					</tr>
-				</table>
-				<ul class="nav nav-pills">
-					<li th:class="${currentPage== status.index}?active : ''"  th:each="page, status:${allPages}">
-						<a th:href="@{/produits(page=${status.index}, motCle=${motCle})}"  th:text="${status.index + 1}"></a>
-					</li>
-				</ul>
+		<div class="container">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Liste des produits</div>
+				<div class="panel-body">
+					<form th:action="@{/produits}" method="get">
+						<label for=""> Mot clé</label> <input type="text" name="motCle"
+							th:value="${motCle}" />
+						<button class="btn btn-success" type="submit">Rechercher</button>
+					</form>
+				</div>
+				<div class="panel-body">
+					<table class="table">
+						<tr>
+							<th>id</th>
+							<th>designation</th>
+							<th>prix</th>
+							<th>quantite</th>
+						</tr>
+						<tr th:each="produit:${listeProduits}">
+							<td th:text="${produit.id}"></td>
+							<td th:text="${produit.designation}"></td>
+							<td th:text="${produit.prix}"></td>
+							<td th:text="${produit.quantite}"></td>
+							<td><a class="btn btn-danger"
+								onclick="return confirm('Etes vous sûr de vouloir supprimer ?')"
+								th:href="@{/delete(id=${produit.id}, page= ${currentPage} , motCle=${motCle})}">Delete</a></td>
+								<td><a class="btn btn-warning"
+								th:href="@{/editProduit(id=${produit.id})}">Edit</a></td>
+						</tr>
+					</table>
+					<ul class="nav nav-pills">
+						<li th:class="${currentPage== status.index}?active : ''"
+							th:each="page, status:${allPages}"><a
+							th:href="@{/produits(page=${status.index}, motCle=${motCle})}"
+							th:text="${status.index + 1}"></a></li>
+					</ul>
 
+				</div>
 			</div>
 		</div>
 	</div>

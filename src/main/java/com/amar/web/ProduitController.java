@@ -2,12 +2,16 @@ package com.amar.web;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.amar.dao.ProduitRepository;
@@ -39,4 +43,35 @@ public class ProduitController {
 		
 		return "redirect:/produits?page="+page+"&motCle="+motCle;
 	}
+	
+	@GetMapping("/formProduit") 
+	public String formProduit (Model model) {
+		model.addAttribute("produit", new Produit());
+		return "formProduit";
+	}
+	@PostMapping("/save") 
+	public String save (Model model, @Valid Produit produit, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) return "formProduit";
+		produitRepository.save(produit);
+		return "redirect:/produits";
+	}
+	
+	
+	@GetMapping("/editProduit")
+//	quand le nom de paramètre de l'url a le même nom que la variable ici (c'est id) on a pas besoin d'ajouter @RequestParam
+	public String editProduit(Model model, Long id ) {
+		
+		Produit produit= produitRepository.findById(id).get();
+		model.addAttribute("produit", produit);
+		return "editProduit";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
